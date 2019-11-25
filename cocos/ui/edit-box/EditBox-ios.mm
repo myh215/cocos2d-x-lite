@@ -225,7 +225,12 @@ namespace
             
             // Assign the overlay button to a stored text field
             createButton(&g_textFieldConfirmButton, &g_textFieldConfirmButtonHandler, rect, showInfo.confirmType);
-            g_textField.rightView = g_textFieldConfirmButton;
+         
+            //  封装一层 ios13子视图rightView显示异常
+            UIView *rightView = [[UIView alloc] initWithFrame:g_textFieldConfirmButton.bounds];
+            [rightView addSubview:g_textFieldConfirmButton];
+            
+            g_textField.rightView = rightView;
             g_textField.rightViewMode = UITextFieldViewModeAlways;
             [g_textField addTarget:g_textFieldDelegate action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         }
